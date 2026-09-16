@@ -117,6 +117,7 @@ def test_delete_missing_key_parameter_returns_422(client):
 
     assert response.status_code == 422
 
+
 def test_put_updates_existing_key(client):
     client.put(
         "/db",

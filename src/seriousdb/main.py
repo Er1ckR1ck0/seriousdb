@@ -15,8 +15,10 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     cache.load(DB_FILE)
     yield
 
+
 app = FastAPI(lifespan=lifespan)
 register_exception_handlers(app)
+
 
 @app.put("/db")
 def put(

@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_DB = {"default": "default"}
 
+
 class Cache:
     def __init__(self):
         self.filename: str | None = None
@@ -19,7 +20,6 @@ class Cache:
     def get_all(self) -> dict[str, str]:
         with self.lock:
             return require_db(self).copy()
-
 
     def insert(self, key: str, value: str) -> str:
         with self.lock:
@@ -90,5 +90,6 @@ def require_db(cache: Cache) -> dict[str, str]:
         )
 
     return cache.db
+
 
 cache = Cache()

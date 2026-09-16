@@ -3,6 +3,7 @@
 Uses only stdlib unittest and FastAPI's TestClient, both already available via the
 project's existing `fastapi[standard]` dependency (no extra packages required).
 """
+
 import json
 import unittest
 from pathlib import Path
@@ -90,26 +91,22 @@ class DocumentedApiTests(unittest.TestCase):
     def test_delete_all_removes(self):
         put_response = self.client.put("/db", params={"key": "name", "value": "Alice"})
         self.assertEqual(put_response.status_code, 200)
-        
+
         on_disk = json.loads(Path(main.DB_FILE).read_text())
         self.assertGreater(len(on_disk), 0)
         self.assertIn("name", on_disk)
         self.assertEqual(on_disk["name"], "Alice")
-        
+
         delete_response = self.client.delete("/db/all")
         self.assertEqual(delete_response.status_code, 200)
-        
-        get_response = self.client.get("/db", params={'key': "name"})
-        self.assertEqual(get_response.status_code, 404) 
-        
+
+        get_response = self.client.get("/db", params={"key": "name"})
+        self.assertEqual(get_response.status_code, 404)
+
         on_disk = json.loads(Path(main.DB_FILE).read_text())
         self.assertEqual(len(on_disk), 0)
         self.assertEqual(on_disk, {})
 
-            
-        
-        
-        
 
 if __name__ == "__main__":
     unittest.main()
