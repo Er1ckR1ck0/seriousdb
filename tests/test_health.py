@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 
 from seriousdb import main
 from seriousdb.cache import Cache
+from deps import get_deps_func
 
 
 @contextmanager
@@ -39,7 +40,7 @@ class HealthEndpointTests(unittest.TestCase):
 
     def test_health_reports_unavailable_cache(self):
         cache = Cache()
-        main.app.dependency_overrides[main.get_cache] = lambda: cache
+        main.app.dependency_overrides[get_deps_func()] = lambda: cache
 
         try:
             response = TestClient(main.app).get("/health")

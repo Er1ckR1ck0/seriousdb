@@ -116,6 +116,13 @@ If the key exists, the API returns its previous value.
 
 If the requested key does not exist, the API returns a `404` response.
 
+### DELETE /db/all
+
+Deletes all key-value pairs.
+
+For example:
+`DELETE /db/all`
+
 ## Error responses
 
 All errors share the same JSON structure:

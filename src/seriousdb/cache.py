@@ -10,12 +10,16 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_DB = {"default": "default"}
 
-
 class Cache:
     def __init__(self):
         self.filename: str | None = None
         self.db: dict[str, str] | None = None
         self.lock = Lock()
+
+    def get_all(self) -> dict[str, str]:
+        with self.lock:
+            return require_db(self).copy()
+
 
     def insert(self, key: str, value: str) -> str:
         with self.lock:
@@ -35,6 +39,10 @@ class Cache:
         if val is None:
             raise ResourceNotFoundError(f"No value set for key {key}")
         return val
+
+    def clear(self) -> None:
+        with self.lock:
+            require_db(self).clear()
 
     def load(self, filename: str) -> None:
         with self.lock:
@@ -82,3 +90,5 @@ def require_db(cache: Cache) -> dict[str, str]:
         )
 
     return cache.db
+
+cache = Cache()

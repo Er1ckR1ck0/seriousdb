@@ -15,6 +15,7 @@ from seriousdb.exceptions import (
     ResourceNotFoundError,
     ServiceUnavailableError,
 )
+from deps import get_deps_func
 
 
 @pytest.fixture
@@ -138,7 +139,7 @@ class TestApiErrorResponses:
     def test_unloaded_database_returns_503(self, client, method, url, params):
         unloaded = Cache()
         unloaded.filename = "missing.sdb"
-        main.app.dependency_overrides[main.get_cache] = lambda: unloaded
+        main.app.dependency_overrides[get_deps_func()] = lambda: unloaded
 
         response = client.request(method, url, params=params)
 
