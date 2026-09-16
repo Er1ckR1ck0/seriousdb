@@ -88,7 +88,7 @@ class DocumentedApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_delete_all_removes(self):
-        put_response = self.client.put("/db", params={'key': "name", "value": "Alice"})
+        put_response = self.client.put("/db", params={"key": "name", "value": "Alice"})
         self.assertEqual(put_response.status_code, 200)
         
         on_disk = json.loads(Path(main.DB_FILE).read_text())
@@ -100,7 +100,7 @@ class DocumentedApiTests(unittest.TestCase):
         self.assertEqual(delete_response.status_code, 200)
         
         get_response = self.client.get("/db", params={'key': "name"})
-        self.assertNotEqual(get_response.status_code, 200) 
+        self.assertEqual(get_response.status_code, 404) 
         
         on_disk = json.loads(Path(main.DB_FILE).read_text())
         self.assertEqual(len(on_disk), 0)
