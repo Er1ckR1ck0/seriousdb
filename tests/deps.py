@@ -1,4 +1,7 @@
-from seriousdb import deps, main
+from typing import Callable
 
-def get_deps_func():
+from seriousdb import deps, main
+from seriousdb.cache import Cache
+
+def get_deps_func() -> Callable[[], Cache]:
     return getattr(main, "get_cache", deps.get_cache)
