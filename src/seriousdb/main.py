@@ -2,12 +2,13 @@ from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from typing import Annotated
 
-from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query
+from fastapi import BackgroundTasks, FastAPI, HTTPException, Query
 
 from .cache import cache
 from .config import DB_FILE
-from .error_handlers import register_exception_handlers
 from .deps import CacheDeps
+from .error_handlers import register_exception_handlers
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:

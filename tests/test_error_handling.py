@@ -1,6 +1,7 @@
 """Tests for the centralized application errors and FastAPI exception handlers."""
 
 import pytest
+from deps import get_deps_func
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
@@ -15,7 +16,6 @@ from seriousdb.exceptions import (
     ResourceNotFoundError,
     ServiceUnavailableError,
 )
-from deps import get_deps_func
 
 
 @pytest.fixture

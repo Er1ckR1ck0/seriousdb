@@ -4,11 +4,11 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
+from deps import get_deps_func
 from fastapi.testclient import TestClient
 
 from seriousdb import main
 from seriousdb.cache import Cache
-from deps import get_deps_func
 
 
 @contextmanager
